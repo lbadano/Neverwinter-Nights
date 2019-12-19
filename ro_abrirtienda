@@ -1,0 +1,20 @@
+///////////////////////////////////////////////////////////////////////////////////////////
+//:: Script: ro_abrirtienda                                                              //
+//:: Evento: OnConversation                                                              //
+//::                                                                                     //
+//:: Abre una tienda, evita tener que hacer un script para cada tienda distinta          //
+//:: Requisito: Un npc comerciante y una tienda, ambos con el mismo tag                  //
+//:: Leonel Badano - 19/12/2019                                                          //
+///////////////////////////////////////////////////////////////////////////////////////////
+
+void main()
+{
+    string oTag = GetTag(OBJECT_SELF);
+    object oStore = GetNearestObjectByTag(oTag);
+    //Busca la tienda mas cercana que comparta el mismo tag que el NPC que esta conversando.
+    if(GetObjectType(oStore) == OBJECT_TYPE_STORE)
+        OpenStore(oStore, GetPCSpeaker());
+
+    else  //Si no hay una tienda disponible, avisarle al PJ
+        ActionSpeakStringByStrRef(53090, TALKVOLUME_TALK);
+}
